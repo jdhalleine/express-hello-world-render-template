@@ -82,8 +82,8 @@ const updateHTML = async (ipAddr, timeZoneName) => {
     </head>
     <body>
       <section>
-        YOUR IP ADDRESS FROM A CLOUDFUNCTION IS ` + IPv2.address() + `</br>
-        YOUR TIMEZONE FROM A CLOUDFUNCTION IS ` + ipAddressInformation.timezone.name + `
+        YOUR IP ADDRESS FROM A CLOUDFUNCTION IS ` + ipAddr + `</br>
+        YOUR TIMEZONE FROM A CLOUDFUNCTION IS ` + timeZoneName + `
       </section>
     </body>
   </html>
