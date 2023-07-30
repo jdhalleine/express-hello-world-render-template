@@ -19,7 +19,7 @@ const sendAPIRequest = async (ipAddress) => {
     timeZoneName = apiResponse.timezone.name;
   }
   
-  updateHTML(ipAddress, timeZoneName);
+  updateHTML(ipAddress, JSON.stringify(apiResponse));
   return "apiResponse.data";
 }
 
