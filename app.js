@@ -1,5 +1,5 @@
 const express = require("express");
-const IP = require('ip');
+const IP = require('request-ip');
 const app = express();
 const port = process.env.PORT || 3001;
 ipAddress="";
