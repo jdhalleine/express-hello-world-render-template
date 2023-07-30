@@ -1,17 +1,22 @@
 const express = require("express");
 const IP = require('request-ip');
+const IPv2 = require('ip');
 const app = express();
 const port = process.env.PORT || 3001;
-ipAddress="";
+let localIpAddress="";
 
 app.get("/", (req, res) => {
-  ipAddress = req.ip +  '-' + IP.address();
+  localIpAddress = IPv2.address();
 
   res.type('html').send(html);
 
 });
 
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const server = app.listen(port, () => {
+  console.log(`Example app listening on port ${port}!`);
+});
+
+
 
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
@@ -61,7 +66,7 @@ const html = `
   </head>
   <body>
     <section>
-      YOUR IP ADDRESS FROM A CLOUDFUNCTION IS ` + ipAddress + `
+      YOUR IP ADDRESS FROM A CLOUDFUNCTION IS ` + IPv2.address() + `
     </section>
   </body>
 </html>
