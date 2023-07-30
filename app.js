@@ -1,10 +1,12 @@
 const express = require("express");
+const IP = require('ip');
 const app = express();
 const port = process.env.PORT || 3001;
 ipAddress="";
 
 app.get("/", (req, res) => {
-  ipAddress = req.socket.remoteAddress;
+  ipAddress = req.ip +  '-' + IP.address();
+
   res.type('html').send(html);
 
 });
