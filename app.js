@@ -5,10 +5,23 @@ const app = express();
 const port = process.env.PORT || 3001;
 let localIpAddress="";
 
-app.get("/", (req, res) => {
+const axios = require('axios');
+const API_KEY = '1a21cb9a6802444480cb78af16d0f44b';
+const URL = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + API_KEY;
+
+
+const sendAPIRequest = async (ipAddress) => {
+  const apiResponse = await axios.get(URL + "&ip_address=" + ipAddress);
+  return apiResponse.data;
+}
+
+
+app.get("/", async (req, res) => {
   localIpAddress = IPv2.address();
 
-  res.type('html').send(html);
+  const ipAddressInformation = await sendAPIRequest(IPv2.address());
+
+  res.type('html').send(ipAddressInformation.timezone.name);
 
 });
 
