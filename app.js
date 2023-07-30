@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3001;
+ipAddress="";
 
-app.get("/", (req, res) => res.type('html').send(html));
+app.get("/", (req, res) => {
+  ipAddress = req.socket.remoteAddress;
+  res.type('html').send(html);
+
+});
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
@@ -54,7 +59,7 @@ const html = `
   </head>
   <body>
     <section>
-      Update works well!
+      YOUR IP ADDRESS FROM A CLOUDFUNCTION IS ` + ipAddress + `
     </section>
   </body>
 </html>
