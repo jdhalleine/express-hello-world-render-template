@@ -13,15 +13,23 @@ const URL = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + API_KEY;
 
 const sendAPIRequest = async (ipAddress) => {
   const apiResponse = await axios.get(URL + "&ip_address=" + ipAddress);
-  updateHTML(ipAddress, apiResponse.timezone.name);
-  return apiResponse.data;
+  let timeZoneName="timeZone Empty";
+  
+  if (typeof apiResponse !== "undefined" && typeof apiResponse.timezone !== "undefined" && typeof apiResponse.timezone.name !== "undefined"){
+    timeZoneName = apiResponse.timezone.name;
+  }
+  
+  updateHTML(ipAddress, timeZoneName);
+  return "apiResponse.data";
 }
 
 
 app.get("/", async (req, res) => {
-  localIpAddress = IPv2.address();
 
-  const ipAddressInformation = await sendAPIRequest(IPv2.address());
+  if (typeof IPv2 !== "undefined"){
+    const ipAddressInformation = await sendAPIRequest(IPv2.address());
+  }
+  
 
   res.type('html').send(html);
 
