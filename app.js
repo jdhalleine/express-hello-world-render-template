@@ -11,14 +11,29 @@ const API_KEY = '1a21cb9a6802444480cb78af16d0f44b';
 const URL = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + API_KEY;
 
 const sendAPIRequest = async (ipAddress) => {
-  const apiResponse = await axios.get(URL + "&ip_address=" + ipAddress);
-  let timeZoneName="timeZone Empty";
+//  const apiResponse = await axios.get(URL + "&ip_address=" + ipAddress);
+
   
-  if (typeof apiResponse !== "undefined" && typeof apiResponse.timezone !== "undefined" && typeof apiResponse.timezone.name !== "undefined"){
-    timeZoneName = apiResponse.timezone.name;
-  }
+  axios.get(URL + "&ip_address=" + ipAddress)
+      .then(apiResponse => {
+          console.log(apiResponse.data);
+
+          let timeZoneName="timeZone Empty";
+          
+          if (typeof apiResponse !== "undefined" && typeof apiResponse.data.timezone !== "undefined" && typeof apiResponse.data.timezone.name !== "undefined"){
+            timeZoneName = apiResponse.data.timezone.name;
+          }
+          
+          updateHTML(ipAddress, timeZoneName);
+          console.log("cool");
+      })
+      .catch(error => {
+          console.log(error);
+          updateHTML(ipAddress, "something went wrong");
+      });
+
+
   
-  updateHTML(ipAddress, apiResponse.data);
   return "apiResponse.data";
 }
 
@@ -44,6 +59,7 @@ server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
 
 const updateHTML = async (ipAddr, timeZoneName) => {
+  console.log('update htlm' + ipAddr + "-" + timeZoneName);
   html = `
   <!DOCTYPE html>
   <html>
@@ -94,6 +110,8 @@ const updateHTML = async (ipAddr, timeZoneName) => {
       </section>
     </body>
   </html>
-  `
+  `;
+
+
 }
 
