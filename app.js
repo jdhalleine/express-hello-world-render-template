@@ -41,7 +41,7 @@ const sendAPIRequest = async (ipAddress) => {
 app.get("/", async (req, res) => {
 
   if (typeof IPv2 !== "undefined"){
-    const ipAddressInformation = await sendAPIRequest(req.header('x-forwarded-for'));
+    const ipAddressInformation = await sendAPIRequest(req.header('x-forwarded-for').split(',')[0]);
   }
   
 
