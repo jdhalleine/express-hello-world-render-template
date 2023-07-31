@@ -10,7 +10,6 @@ const axios = require('axios');
 const API_KEY = '1a21cb9a6802444480cb78af16d0f44b';
 const URL = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + API_KEY;
 
-
 const sendAPIRequest = async (ipAddress) => {
   const apiResponse = await axios.get(URL + "&ip_address=" + ipAddress);
   let timeZoneName="timeZone Empty";
@@ -19,7 +18,7 @@ const sendAPIRequest = async (ipAddress) => {
     timeZoneName = apiResponse.timezone.name;
   }
   
-  updateHTML(ipAddress, JSON.stringify(apiResponse));
+  updateHTML(ipAddress, apiResponse.data);
   return "apiResponse.data";
 }
 
